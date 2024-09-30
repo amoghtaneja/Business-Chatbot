@@ -1,0 +1,41 @@
+The Document shows thw content of code with a full explanation 
+
+Libraries:
+flask: It is Web framework for building a web application
+openai: The Library for interacting with the OpenAI API
+textblob: The Library for sentiment analysis of text
+
+Environment Variable:
+OPENAI_API_KEY: This variable should be set with your OpenAI API key before running the code.
+
+Product Details:
+product: Name of the product being sold (default: "Laptop")
+initial_price: Initial price of the product (default: 35000)
+min_price: Minimum acceptable price (not directly used in this code)
+max_discount: Maximum discount offered (default: 3000)
+
+Functions:
+extract_price(user_input): Extracts a numeric price from user input. It uses regular expressions to filter out non-numeric characters and returns the integer value if found, otherwise None.
+analyze_sentiment(user_input): Uses TextBlob to analyze the sentiment of the user input. It returns a polarity score between -1 (negative) and +1 (positive).
+negotiate_price(user_offer, user_input): This is the core negotiation logic.
+It analyzes user sentiment using analyze_sentiment.
+Based on sentiment, it defines a discount between 0 (no discount) and max_discount.
+It calculates the final price based on the initial price and discount.
+It constructs a prompt for OpenAI API that includes product name, initial price, discount, final price, and user sentiment score.
+It uses OpenAI's Completion.create function with the "text-davinci-003" engine to generate a response from ChatGPT acting as a salesperson.
+The response is the salesperson's negotiation message based on the user's offer and sentiment.
+
+Chatbot Route:
+/chat (POST): This route handles the chatbot conversation.
+It retrieves the user's message from the request body.
+It attempts to extract a price offer from the message using extract_price.
+If a price is found:
+It calls negotiate_price to get the salesperson's response based on the offer and sentiment.
+Otherwise:
+It offers the product at the initial price and asks if the user wants to negotiate.
+The response is returned as JSON.
+
+Running the App:
+Make sure you have set the OPENAI_API_KEY environment variable.
+Run the script using python app.py.
+This will start the Flask application in debug mode, allowing for automatic reloading of code changes.
