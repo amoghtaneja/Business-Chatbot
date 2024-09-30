@@ -6,7 +6,7 @@ from textblob import TextBlob
 app = Flask(__name__)
 
 # OpenAI API key from environment variable
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("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")
 
 # Product details and initial price
 product = "Laptop"
